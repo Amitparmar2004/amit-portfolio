@@ -114,35 +114,3 @@ typeRole();
 
 
 
-// ================================
-// VISITOR COUNTER
-// ================================
-
-(function () {
-    const counter = document.getElementById("visitor-count");
-
-    if (!counter) return;
-
-    fetch("https://visitor.6developer.com/visit", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            domain: window.location.hostname,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            page_path: window.location.pathname,
-            page_title: document.title,
-            referrer: document.referrer
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.totalCount !== undefined) {
-            counter.textContent = data.totalCount;
-        }
-    })
-    .catch(error => {
-        console.error("Visitor counter error:", error);
-    });
-})();
